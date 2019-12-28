@@ -54,7 +54,7 @@ const Login = (props) => {
             if (res.data.success) {
                 localStorage.setItem("userToken", res.data.data.token);
                 localStorage.setItem("username", res.data.data.username);
-                props.history.push("/create-event");
+                props.history.push("/create-meeting");
             }
 
             else {

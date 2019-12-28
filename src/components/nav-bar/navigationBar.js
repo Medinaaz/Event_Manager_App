@@ -18,7 +18,7 @@ const NavBar = (props) => {
     props.history.push("/create-meeting");
   };
   const handleDisplayEvent = popupState => {
-    history.push("/all-events");
+    props.history.push("/display-meetings");
   };
 
   const logout = () => {
