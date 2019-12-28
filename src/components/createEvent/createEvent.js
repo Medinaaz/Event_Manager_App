@@ -20,7 +20,8 @@ class CreateEvent extends React.Component {
             venueName: "",
             eventName: "",
             contacts: [],
-            selectedContacts: []
+            selectedContacts: [],
+            username: localStorage.getItem("username")
         };
         this.submit_data = this.submit_data.bind(this)
 
@@ -33,8 +34,25 @@ class CreateEvent extends React.Component {
             this.props.history.push("/login");
         }
 
-        //use user id to get contacts and change state
-        this.setState({contacts: [{key: 1, data: "first"}]});
+        axios({
+            method: 'post',
+            url: config.GET_CONTACTS,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem("userToken")
+            },
+            data: {
+                "username": localStorage.getItem("username")
+            }
+        }).
+        then((res) => {
+            console.log(localStorage.getItem("username"));
+            console.log(res);
+            this.setState({contacts: res.data.data});
+        }).
+        catch((err) => {
+            console.log("err", err);
+        });
     }
 
     handleChange = (e) => {
@@ -53,21 +71,16 @@ class CreateEvent extends React.Component {
 
         axios({
             method: 'post',
-            url: config.EVENT_URL,
+            url: config.MEETING_URL,
             headers: {
                 'Content-Type': 'application/json',
-                //'Authorization': this.state.user_token
+                'Authorization': localStorage.getItem("userToken")
                 },
-            data: {
-                //"players": [this.state.user_id],
-
-            }
+            data: this.state
         }).
         then((res) => {
             if (res.data.success) {
-                this.setState({
-                    //share_code: res.data.data.shareCode,
-                })
+                alert("Meeting created successfully")
             }}).
         catch((err) => {
             console.log("err", err);
@@ -77,7 +90,7 @@ class CreateEvent extends React.Component {
     render(){
         return(
         <Fragment>
-            <NavBar/>
+            <NavBar history={this.props.history}/>
             <Paper variant="outlined" style={{backgroundColor:"#b3e5fc", marginLeft: "auto", marginRight: "auto", marginTop: 40, width: 600, height:500, padding: 16 }}>
                 <Typography variant="h4" align='center' gutterBottom>
                     Create a Meeting

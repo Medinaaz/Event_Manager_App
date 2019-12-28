@@ -56,6 +56,7 @@ class AddContact extends React.Component {
                 "email": [this.state.email],
                 "fullname": [this.state.fullname],
                 "phoneNumber": [this.state.phoneNumber],
+                "username": localStorage.getItem("username")
             }
         }).
         then((res) => {
@@ -70,7 +71,7 @@ class AddContact extends React.Component {
     render(){
         return(
             <Fragment>
-                <NavBar/>
+                <NavBar history={this.props.history}/>
                 <Paper variant="outlined" style={{backgroundColor:"#b3e5fc", marginLeft: "auto", marginRight: "auto", marginTop: 40, width: 350, height:400, padding: 16 }}>
                     <Typography variant="h4" align='center' gutterBottom>
                         Add New Contact
@@ -80,31 +81,34 @@ class AddContact extends React.Component {
                         render={({handleSubmit, form, submitting, pristine, values}) => (
                             <form onSubmit={this.submit_data}>
                                 <Grid container>
-                                    <Grid item xs={12} style={{marginLeft: 90}}>
+                                    <Grid item xs={12} style={{marginLeft: 70}}>
                                         <TextField
                                             id="fullname"
                                             name="fullname"
                                             onChange={this.handleChange}
                                             label="Fullname"
                                             value={this.state.fullname}
+                                            style={{width: 200}}
                                         />
                                     </Grid>
-                                    <Grid item xs={12} style={{marginLeft: 90, marginTop: 20}}>
+                                    <Grid item xs={12} style={{marginLeft: 70, marginTop: 20}}>
                                         <TextField
                                             id="email"
                                             name="email"
                                             label="Email Address"
                                             onChange={this.handleChange}
                                             value={this.state.email}
+                                            style={{width: 200}}
                                         />
                                     </Grid>
-                                    <Grid item xs={12} style={{marginLeft: 90, marginTop: 20}}>
+                                    <Grid item xs={12} style={{marginLeft: 70, marginTop: 20}}>
                                         <TextField
                                             id="phone"
                                             name="phoneNumber"
                                             onChange={this.handleChange}
                                             label="Phone Number"
                                             value={this.state.phoneNumber}
+                                            style={{width: 200}}
                                         />
                                     </Grid>
                                     <Grid item xs={6}>

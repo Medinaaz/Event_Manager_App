@@ -10,20 +10,20 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useStyles } from "./styles";
 
-const NavBar = ({ history, user_id, is_private}) => {
+const NavBar = (props) => {
   const handleAddContact = popupState => {
-    history.push("/add-contact");
+    props.history.push("/add-contact");
   };
   const handleCreateMeeting = popupState => {
-    history.push("/create-meeting");
+    props.history.push("/create-meeting");
   };
   const handleDisplayEvent = popupState => {
-    history.push("/display-events");
+    props.history.push("/display-events");
   };
 
   const logout = () => {
     localStorage.setItem("token", "");
-    history.replace("/", "logoutState");
+    props.history.replace("/", "logoutState");
   };
   const classes = useStyles();
 

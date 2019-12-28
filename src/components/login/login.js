@@ -42,17 +42,19 @@ const Login = (props) => {
             const res = await axios({
                 method: 'post',
                 url: config.LOGIN_URL,
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json','X-Requested-With': 'XMLHttpRequest'},
                 data: {
                     email: values.email,
                     password: values.password
                 }
             });
 
+            console.log(res);
+
             if (res.data.success) {
-                localStorage.setItem("token", res.data.data.token);
-                props.venueContext.setValue("token", res.data.data.token);
-                props.history.push("/venue-list");
+                localStorage.setItem("userToken", res.data.data.token);
+                localStorage.setItem("username", res.data.data.username);
+                props.history.push("/create-event");
             }
 
             else {
@@ -65,11 +67,10 @@ const Login = (props) => {
     };
 
     const keyPressed = async (event) => {
-
         if (event.key === 'Enter') {
             handleSubmit(event)
         }
-    }
+    };
 
     return (
         <Fragment>
